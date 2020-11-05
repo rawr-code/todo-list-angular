@@ -1,5 +1,42 @@
-<div>
-  <h1>
+<div class="container col-sm-4">
+  <h1 class="h2 text-center mt-4 mb-4">
     {{ title }}
   </h1>
+
+  <form (submit)="addNewTodo()">
+    <div class="form-group">
+      <input
+        [(ngModel)]="description"
+        type="text"
+        name="description"
+        class="form-control"
+        placeholder="TODO description"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Add TODO</button>
+  </form>
+  <ul class="list-group mt-4">
+    <li
+      class="list-group-item d-flex flex-column justify-content-between"
+      *ngFor="let todo of todos"
+      (click)="doneTodo(todo.id)"
+      [class.list-group-item-success]="todo.isDone"
+    >
+      <p class="text-truncate text-wrap">
+        {{ todo.description }}
+      </p>
+      <div class="mt-2">
+        <button class="btn btn-success">Done</button>
+        <button
+          class="btn btn-danger ml-2"
+          [class.disabled]="todo.isDone"
+          [disabled]="todo.isDone"
+          (click)="removeTodo(todo.id)"
+        >
+          Remove
+        </button>
+      </div>
+    </li>
+  </ul>
+  <br />
 </div>
